@@ -28,3 +28,7 @@ use as reference `gm_code_example`
 from: https://github.com/aszarth/sampvoice_phone_and_radio/blob/master/gamemodes/gm_code_example.pwn
 
 and put it in your gamemode so players can switch talk stat to radio/local and connect/disconnect on radio frequencies
+
+# possible incompatibilities
+
+sadly some libs cannot work fine with sampvoice lib their repository is abandoned so i recommend to avoid some libs that could possibly cause conflicts: `#include <Pawn.RakNet>`, some `YSI`
