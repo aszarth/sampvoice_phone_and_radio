@@ -31,7 +31,7 @@ new SV_LSTREAM:local_stream[MAX_PLAYERS] = { SV_NULL, ... };
 new voice_phonecall_targetid[MAX_PLAYERS];
 new SV_GSTREAM:phone_stream[MAX_PLAYERS] = { SV_NULL, ... };
 // radio
-#define MAX_VOICE_RADIO 9999 // same then GM (#define MAX_RADIOS)
+#define MAX_VOICE_RADIO 999 // same then GM (#define MAX_RADIOS)
 new voice_radiocall_radioid[MAX_PLAYERS];
 new SV_GSTREAM:radio_stream[MAX_VOICE_RADIO] = { SV_NULL, ... };
 
@@ -41,7 +41,8 @@ new SV_GSTREAM:radio_stream[MAX_VOICE_RADIO] = { SV_NULL, ... };
 public SV_VOID:OnPlayerActivationKeyPress(SV_UINT:playerid, SV_UINT:keyid) 
 {
     if (keyid == 0x42) {
-        if(GetPVarInt(playerid,"talkStats") != 3) {
+        new pvarTalkStats = GetPVarInt(playerid,"talkStats");
+        if(pvarTalkStats != 3) {
             // phone
             new callid = voice_phonecall_targetid[playerid];
             if(callid != 65535) {
@@ -61,7 +62,7 @@ public SV_VOID:OnPlayerActivationKeyPress(SV_UINT:playerid, SV_UINT:keyid)
             }
         }
         // radio
-        else if(GetPVarInt(playerid,"talkStats") == 3) {
+        else if(pvarTalkStats == 3) {
             new radioid = voice_radiocall_radioid[playerid];
             if(radioid != 0) {
                 if(radio_stream[radioid]) {
@@ -203,6 +204,7 @@ public JoinPrivateVoiceChannel(playerid, targetid)
 public LeavePrivateVoiceChannel(playerid)
 {
     new oldchannelid = voice_phonecall_targetid[playerid];
+    voice_phonecall_targetid[playerid] = 65535;
     if (oldchannelid != 65535 && phone_stream[oldchannelid]) {
         // remove speaker
         if(SvHasSpeakerInStream(phone_stream[oldchannelid], playerid))
@@ -239,6 +241,7 @@ public JoinGroupVoiceChannel(playerid, frequency_id)
 public LeaveGroupVoiceChannel(playerid)
 {
     new oldchannelid = voice_radiocall_radioid[playerid];
+    voice_radiocall_radioid[playerid] = 0;
     if (oldchannelid != 0 && radio_stream[oldchannelid]) {
         // remove speaker
         if(SvHasSpeakerInStream(radio_stream[oldchannelid], playerid))
