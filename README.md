@@ -1,5 +1,15 @@
 # intro
-its filterscript plug and play to use sampvoice (https://github.com/CyberMor/sampvoice) with radio voice and phone voice
+It is filterscript plug-and-play to use sampvoice plugin (https://github.com/CyberMor/sampvoice) with some features:
+- voip local
+- voip radio (group)
+- voip phone (private)
+- no crash on server running
+- no crash on gmx
+- tested on a server with 200 players online
+- same FS i use on samp server intense life (http://il.8gs.org/)
+
+
+Demo video of a player using it on my server (in portuguese): https://www.youtube.com/watch?v=yLWJIz-RVIs
 
 # how to install/use
 
